@@ -22,9 +22,8 @@ data class MovieModel (
         @SerializedName("poster_path") @Expose var posterPath: String
 
 ) : Parcelable
-{
-    @BindingAdapter("bind:posterPath")
-    fun loadPosterUrl(imageView: SimpleDraweeView, iUrl: String) {
-        imageView.setImageURI(iUrl)
-    }
+
+@BindingAdapter("posterPath")
+fun loadPosterUrl(imageView: SimpleDraweeView, iUrl: String) {
+    imageView.setImageURI(iUrl)
 }

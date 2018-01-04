@@ -57,6 +57,7 @@ class MainActivity : BaseActivity(), MainContract.View {
             var bbb = DataBindingUtil.bind<MovieItemLayoutBinding>(itemView)
             bbb.movieModel = item
             bbb.executePendingBindings()
+            //bbb.imgMoviePoster.setImageURI(item.posterPath)
         }
         layoutManager = GridLayoutManager(this, 2)
         bi.listRecyclerView.setHasFixedSize(true)
