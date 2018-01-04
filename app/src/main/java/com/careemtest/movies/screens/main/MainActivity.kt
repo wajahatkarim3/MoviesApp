@@ -17,6 +17,7 @@ import android.widget.Button
 import com.kennyc.view.MultiStateView
 import com.careemtest.movies.R.id.multistate
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
 import com.careemtest.movies.databinding.MovieItemLayoutBinding
 import com.careemtest.movies.screens.details.MovieDetailsActivity
 import com.careemtest.movies.utils.SnackUtils
@@ -36,6 +37,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     var isLoading = false
     var snackBar: Snackbar? = null
     var layoutManager: GridLayoutManager? = null
+    var releaseDate: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +55,9 @@ class MainActivity : BaseActivity(), MainContract.View {
 
         // Toolbar
         setSupportActionBar(bi.toolbar)
+
+        // Date Picker
+        bi.datePickerEditText.setManager(supportFragmentManager)
 
         // RecyclerView
         moviesAdapter = RecyclerAdapterUtil(this, moviesList, R.layout.movie_item_layout)
@@ -80,7 +85,6 @@ class MainActivity : BaseActivity(), MainContract.View {
                 }
 
             }
-
         }
         layoutManager = GridLayoutManager(this, 2)
         bi.listRecyclerView.setHasFixedSize(true)
@@ -93,6 +97,15 @@ class MainActivity : BaseActivity(), MainContract.View {
         // Multistate
         bi.multistate.getView(MultiStateView.VIEW_STATE_ERROR)?.
                 findViewById<View>(R.id.retry)?.setOnClickListener {  }
+
+
+    }
+
+    override fun onReleaseDataChanged(date: String) {
+        releaseDate = date
+        page = 1
+        moviesList.clear()
+        presenter.loadLatestMovies(1, releaseDate)
     }
 
     override fun showMainLoading()
@@ -143,7 +156,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                     snackBar = SnackUtils.showLoadingSnackbar(this@MainActivity, "Loading more items...")
                     isLoading = true
                     page++
-                    presenter.loadLatestMovies(page)
+                    presenter.loadLatestMovies(page, releaseDate)
                 }
             }
         }

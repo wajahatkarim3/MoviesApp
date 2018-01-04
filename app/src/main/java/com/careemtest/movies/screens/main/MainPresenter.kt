@@ -17,15 +17,15 @@ class MainPresenter(view: MainContract.View, repository: MainRepository) : BaseP
 
     override fun initScreen() {
         _view?.setupViews()
-        loadLatestMovies(1)
+        loadLatestMovies(1, "")
     }
 
-    fun loadLatestMovies(page: Int)
+    fun loadLatestMovies(page: Int,releaseDate:String)
     {
         if (page == 1)
             _view?.showMainLoading()
 
-        repository?.getLatestMovies(page, object : MainContract.Repository.OnLatestMoviesResponse
+        repository?.getLatestMovies(page, releaseDate, object : MainContract.Repository.OnLatestMoviesResponse
         {
             override fun onSuccess(list: List<MovieModel>, pagination:Boolean) {
                 _view?.showContent(list, pagination)

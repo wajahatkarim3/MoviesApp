@@ -17,9 +17,9 @@ import java.net.HttpURLConnection.HTTP_OK
  */
 class MainRepository(context: BaseActivity) : BaseRepository(context), MainContract.Repository {
 
-    override fun getLatestMovies(page: Int, callback: MainContract.Repository.OnLatestMoviesResponse) {
+    override fun getLatestMovies(page: Int, releaseDate:String, callback: MainContract.Repository.OnLatestMoviesResponse) {
         context._retrofit.create(ApiService::class.java)
-                .getNowPlaying(AppConstants.HTTP.API_KEY, page)
+                .getNowPlaying(AppConstants.HTTP.API_KEY, page, releaseDate)
                 .enqueue(object : Callback<MoviesListResponse>{
 
                     override fun onResponse(call: Call<MoviesListResponse>?, response: Response<MoviesListResponse>?) {

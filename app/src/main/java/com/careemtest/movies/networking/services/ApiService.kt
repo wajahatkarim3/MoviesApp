@@ -12,10 +12,11 @@ import retrofit2.http.Query
  */
 interface ApiService {
 
-    @GET("movie/now_playing")
+    @GET("discover/movie")
     fun getNowPlaying(
             @Query("api_key") apiKey: String,
-            @Query("page") page: Int
+            @Query("page") page: Int,
+            @Query("primary_release_date.gte") releaseData: String
     ) : Call<MoviesListResponse>
 
     @GET("movie/{movie_id}/credits")

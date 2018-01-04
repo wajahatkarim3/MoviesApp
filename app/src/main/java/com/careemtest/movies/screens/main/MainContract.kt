@@ -13,6 +13,7 @@ interface MainContract {
         fun showError(message: String)
         fun showPageLoading()
         fun showEmpty()
+        fun onReleaseDataChanged(date:String)
     }
 
     interface Actions {
@@ -25,6 +26,6 @@ interface MainContract {
             fun onSuccess(list:List<MovieModel>, pagination:Boolean)
             fun onError(message:String)
         }
-        fun getLatestMovies(page:Int, callback:OnLatestMoviesResponse)
+        fun getLatestMovies(page:Int, releaseDate:String, callback:OnLatestMoviesResponse)
     }
 }

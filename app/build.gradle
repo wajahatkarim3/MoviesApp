@@ -57,6 +57,7 @@ dependencies {
     implementation 'com.github.gurleensethi:LiteUtilities:v1.3.0'
     implementation 'com.facebook.fresco:fresco:1.5.0'
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+    compile 'com.github.BlackBoxVision:datetimepicker-edittext:v0.3.3'
 
     // Dagger
     implementation 'com.google.dagger:dagger:2.13'

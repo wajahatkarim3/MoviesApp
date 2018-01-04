@@ -25,17 +25,36 @@
             app:msv_errorView="@layout/list_error_view"
             app:msv_emptyView="@layout/list_empty_view"
             app:msv_loadingView="@layout/list_loading_view"
-            app:msv_viewState="loading">
+            app:msv_viewState="content">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/listRecyclerView"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:clipToPadding="false"
-                tools:listitem="@layout/movie_item_layout"/>
+                android:layout_height="match_parent">
+
+                <io.blackbox_vision.datetimepickeredittext.view.DatePickerEditText
+                    android:id="@+id/datePickerEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    app:dateFormat="yyyy-MM-dd"
+                    android:afterTextChanged='@{(editabble) -> view.onReleaseDataChanged(editabble.toString())}'
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:hint="Select Release Date"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/listRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_below="@+id/datePickerEditText"
+                    android:clipToPadding="false"
+                    tools:listitem="@layout/movie_item_layout"/>
+
+            </RelativeLayout>
+
+
 
         </com.kennyc.view.MultiStateView>
 
