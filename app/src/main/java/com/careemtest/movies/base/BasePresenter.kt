@@ -1,6 +1,7 @@
 package com.careemtest.movies.base
 
 import android.support.annotation.CallSuper
+import retrofit2.Retrofit
 
 /**
  * Created by Wajahat Karim on 4/21/2017.
@@ -38,4 +39,6 @@ abstract class BasePresenter<V> protected constructor(view: V) {
     fun detachView() {
         _view = null
     }
+
+    var retrofit: Retrofit? = null
 }

@@ -12,18 +12,56 @@
             type="com.careemtest.movies.screens.main.MainPresenter"/>
     </data>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <android.support.design.widget.CoordinatorLayout
+        android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWindowBackground"
-        tools:context="com.careemtest.movies.screens.main.MainActivity">
+        android:background="@color/colorWindowBackground">
 
         <com.kennyc.view.MultiStateView
             android:id="@+id/multistate"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            app:msv_errorView="@layout/list_error_view"
+            app:msv_emptyView="@layout/list_empty_view"
+            app:msv_loadingView="@layout/list_loading_view"
+            app:msv_viewState="loading">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:clipToPadding="false"
+                tools:listitem="@layout/movie_item_layout"/>
 
         </com.kennyc.view.MultiStateView>
 
-    </RelativeLayout>
+        <FrameLayout
+            android:id="@+id/toolbar_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways"
+                android:layout_width="match_parent"
+                android:background="@color/colorPrimary"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+            <com.miguelcatalan.materialsearchview.MaterialSearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </FrameLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
 </layout>

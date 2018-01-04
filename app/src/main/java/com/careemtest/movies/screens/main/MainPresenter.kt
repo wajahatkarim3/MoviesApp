@@ -10,6 +10,14 @@ class MainPresenter(view: MainContract.View, repository: MainRepository) : BaseP
 
     override fun initScreen() {
         _view?.setupViews()
+        loadLatestMovies()
+    }
+
+    fun loadLatestMovies()
+    {
+        _view?.showMainLoading()
+
+
     }
 
 }
