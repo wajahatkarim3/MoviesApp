@@ -14,4 +14,11 @@ public class MyTextUtils {
         url = AppConstants.HTTP.INSTANCE.getIMAGE_URL() + "w185" + movieModel.getPosterPath();
         return url;
     }
+
+    public static String getUrl(String path)
+    {
+        String url = "";
+        url = AppConstants.HTTP.INSTANCE.getIMAGE_URL() + "w185" + path;
+        return url;
+    }
 }

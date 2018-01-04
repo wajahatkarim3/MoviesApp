@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MoviesApp.iml" filepath="$PROJECT_DIR$/MoviesApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Movies Careem App.iml" filepath="$PROJECT_DIR$/Movies Careem App.iml" />
+      <module fileurl="file://D:\My Work\GamyGuru\My Github\Movies Careem App\MoviesApp.iml" filepath="D:\My Work\GamyGuru\My Github\Movies Careem App\MoviesApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

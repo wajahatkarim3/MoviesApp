@@ -11,6 +11,7 @@ import com.careemtest.movies.databinding.ActivityMainBinding
 import com.careemtest.movies.models.MovieModel
 import com.thetechnocafe.gurleensethi.liteutils.RecyclerAdapterUtil
 import android.support.design.widget.Snackbar
+import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
 import android.widget.Button
 import com.kennyc.view.MultiStateView
@@ -60,11 +61,26 @@ class MainActivity : BaseActivity(), MainContract.View {
             bbb.movieModel = item
             bbb.executePendingBindings()
             //bbb.imgMoviePoster.setImageURI(item.posterPath)
-        }
-        moviesAdapter?.addOnClickListener { item, position ->
-            var intent = Intent(this@MainActivity, MovieDetailsActivity::class.java)
-            intent.putExtra("movieModel", item)
-            startActivity(intent)
+
+            bbb.rootItemLayout.setOnClickListener { view ->
+
+                var currentapiVersion = android.os.Build.VERSION.SDK_INT;
+                if (currentapiVersion >= android.os.Build.VERSION_CODES.LOLLIPOP)
+                {
+                    var intent = Intent(this@MainActivity, MovieDetailsActivity::class.java)
+                    intent.putExtra("movieModel", item)
+                    var options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity, bbb.imgMoviePoster, "movie_image_transition")
+                    startActivity(intent, options.toBundle())
+                }
+                else
+                {
+                    var intent = Intent(this@MainActivity, MovieDetailsActivity::class.java)
+                    intent.putExtra("movieModel", item)
+                    startActivity(intent)
+                }
+
+            }
+
         }
         layoutManager = GridLayoutManager(this, 2)
         bi.listRecyclerView.setHasFixedSize(true)

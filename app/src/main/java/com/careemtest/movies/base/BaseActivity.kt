@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import android.widget.EditText
 import com.careemtest.movies.BuildConfig
 import com.careemtest.movies.MoviesApp
+import com.facebook.drawee.drawable.ScalingUtils
+import com.facebook.drawee.view.DraweeTransition
 
 import de.mateware.snacky.Snacky
 import retrofit2.Retrofit
@@ -53,7 +55,7 @@ open class BaseActivity : AppCompatActivity() {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     fun setSharedElemts() {
-        /*
+
         val currentapiVersion = Build.VERSION.SDK_INT
         if (currentapiVersion >= Build.VERSION_CODES.LOLLIPOP) {
             //getWindow().setSharedElementEnterTransition(DraweeTransform.createTransitionSet());
@@ -64,7 +66,7 @@ open class BaseActivity : AppCompatActivity() {
                     ScalingUtils.ScaleType.FOCUS_CROP, ScalingUtils.ScaleType.FOCUS_CROP)
 
         }
-        */
+
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
