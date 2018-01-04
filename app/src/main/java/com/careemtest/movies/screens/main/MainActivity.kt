@@ -1,5 +1,6 @@
 package com.careemtest.movies.screens.main
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +17,7 @@ import com.kennyc.view.MultiStateView
 import com.careemtest.movies.R.id.multistate
 import android.support.v7.widget.RecyclerView
 import com.careemtest.movies.databinding.MovieItemLayoutBinding
+import com.careemtest.movies.screens.details.MovieDetailsActivity
 import com.careemtest.movies.utils.SnackUtils
 
 
@@ -58,6 +60,11 @@ class MainActivity : BaseActivity(), MainContract.View {
             bbb.movieModel = item
             bbb.executePendingBindings()
             //bbb.imgMoviePoster.setImageURI(item.posterPath)
+        }
+        moviesAdapter?.addOnClickListener { item, position ->
+            var intent = Intent(this@MainActivity, MovieDetailsActivity::class.java)
+            intent.putExtra("movieModel", item)
+            startActivity(intent)
         }
         layoutManager = GridLayoutManager(this, 2)
         bi.listRecyclerView.setHasFixedSize(true)
