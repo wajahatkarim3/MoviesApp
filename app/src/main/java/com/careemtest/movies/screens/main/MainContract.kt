@@ -20,6 +20,11 @@ interface MainContract {
     }
 
     interface Repository {
-
+        interface OnLatestMoviesResponse
+        {
+            fun onSuccess(list:List<MovieModel>, pagination:Boolean)
+            fun onError(message:String)
+        }
+        fun getLatestMovies(page:Int, callback:OnLatestMoviesResponse)
     }
 }

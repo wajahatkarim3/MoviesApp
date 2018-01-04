@@ -14,9 +14,9 @@ import android.view.View
 import android.widget.Button
 import com.kennyc.view.MultiStateView
 import com.careemtest.movies.R.id.multistate
-
-
-
+import android.support.v7.widget.RecyclerView
+import com.careemtest.movies.databinding.MovieItemLayoutBinding
+import com.careemtest.movies.utils.SnackUtils
 
 
 class MainActivity : BaseActivity(), MainContract.View {
@@ -44,8 +44,6 @@ class MainActivity : BaseActivity(), MainContract.View {
         bi.view = this
         bi.presenter = presenter
         presenter.initScreen()
-
-        //initDummy()
     }
 
     override fun setupViews() {
@@ -55,14 +53,22 @@ class MainActivity : BaseActivity(), MainContract.View {
 
         // RecyclerView
         moviesAdapter = RecyclerAdapterUtil(this, moviesList, R.layout.movie_item_layout)
+        moviesAdapter?.addOnDataBindListener { itemView, item, position, innerViews ->
+            var bbb = DataBindingUtil.bind<MovieItemLayoutBinding>(itemView)
+            bbb.movieModel = item
+            bbb.executePendingBindings()
+        }
         layoutManager = GridLayoutManager(this, 2)
         bi.listRecyclerView.setHasFixedSize(true)
         bi.listRecyclerView.layoutManager = layoutManager
         bi.listRecyclerView.adapter = moviesAdapter
 
+        // Pagination
+        bi.listRecyclerView.addOnScrollListener(recyclerViewOnScrollListener)
+
         // Multistate
         bi.multistate.getView(MultiStateView.VIEW_STATE_ERROR)?.
-                findViewById<Button>(R.id.retry)?.setOnClickListener {  }
+                findViewById<View>(R.id.retry)?.setOnClickListener {  }
     }
 
     override fun showMainLoading()
@@ -95,20 +101,27 @@ class MainActivity : BaseActivity(), MainContract.View {
         bi.multistate.viewState = MultiStateView.VIEW_STATE_EMPTY
     }
 
-    fun initDummy()
-    {
-        moviesList.add(MovieModel())
-        moviesList.add(MovieModel())
-        moviesList.add(MovieModel())
-        moviesList.add(MovieModel())
-        moviesList.add(MovieModel())
-        moviesList.add(MovieModel())
-        moviesList.add(MovieModel())
-        moviesList.add(MovieModel())
-        moviesList.add(MovieModel())
-        moviesList.add(MovieModel())
-        moviesList.add(MovieModel())
+    private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+        }
 
-        moviesAdapter?.notifyDataSetChanged()
+        override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+            if (!isLoading && nextPage) {
+
+                var adapPos = layoutManager?.findLastVisibleItemPosition()
+                var itemPos = moviesAdapter?.itemCount ?: 0
+                itemPos = itemPos - 1
+
+                if (adapPos == itemPos ) {
+                    snackBar = SnackUtils.showLoadingSnackbar(this@MainActivity, "Loading more items...")
+                    isLoading = true
+                    page++
+                    presenter.loadLatestMovies(page)
+                }
+            }
+        }
     }
 }
